@@ -5,10 +5,14 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(24205_atayants_oop_cpp
         main.cpp
-        normalize.cpp
-        normalize.h
+        Normalizer.cpp
+        Normalizer.h
         Parser.cpp
         Parser.h
         CSV-Loader.cpp
         CSV-Loader.h
+        TotalWords.cpp
+        TotalWords.h
+        MergeWordCount.cpp
+        MergeWordCount.h
 )

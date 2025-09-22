@@ -1,8 +1,6 @@
 #include "CSV-Loader.h"
-#include<fstream>
-#include<map>
-#include<iostream>
-void DataToCSV(const std::map<std::string, int>& wordFrequencies, const std::string& filename) {
+#include<iomanip>
+void DataToCSV(const std::map<std::string, int>& wordFrequencies, const int totalWords, const std::string& filename ) {
     std::ofstream outputFile(filename);
 
     if (!outputFile.is_open()) {
@@ -11,11 +9,13 @@ void DataToCSV(const std::map<std::string, int>& wordFrequencies, const std::str
     }
 
 
-    outputFile << "Word,Frequency" << std::endl;
+    outputFile << "Word,Frequency,Percentage" << std::endl;
 
     for (const auto& pair : wordFrequencies) {
-        outputFile << pair.first << "," << pair.second << std::endl;
+        double percentage = (static_cast<double>(pair.second) / totalWords) * 100.0;
+        outputFile << pair.first << "," << pair.second << "," << std::fixed << std::setprecision(2) << percentage << std::endl;
     }
+    outputFile.close();
 
     outputFile.close();
     std::cout << "Data loaded to CSV file " << filename << std::endl;

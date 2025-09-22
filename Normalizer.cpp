@@ -1,7 +1,6 @@
-#include "normalize.h"
-#include <iostream>
-#include <string>
-std::string normalizeWord(const std::string& word) {
+#include "Normalizer.h"
+
+std::string NormalizeWord(const std::string& word) {
     if (word.empty()) {
         return "";
     }
