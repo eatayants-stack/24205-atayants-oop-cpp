@@ -1,6 +1,15 @@
-#ifndef INC_24205_ATAYANTS_OOP_CPP_PARSER_H
-#define INC_24205_ATAYANTS_OOP_CPP_PARSER_H
-#include "map"
-#include "string"
-std::map<std::string, int> Parse(const std::string& text);
-#endif //INC_24205_ATAYANTS_OOP_CPP_PARSER_H
+#ifndef PARSER_H
+#define PARSER_H
+
+#include <string>
+#include <vector>
+
+
+
+class Parser {
+public:
+
+    static std::vector<std::string> parseLine(const std::string& line);
+};
+
+#endif // PARSER_H

@@ -1,28 +1,22 @@
 #include "Parser.h"
-#include "Normalizer.h"
+#include <cctype>
 
-std::map<std::string, int> Parse(const std::string& text) {
-    std::map<std::string, int> wordCounts;
-    std::string current_word;
 
-    for (char c : text) {
-        if (std::isspace(c)) {
-            if (!current_word.empty()) {
-                std::string normalized = NormalizeWord(current_word);
-                if (!normalized.empty()) {
-                    wordCounts[normalized]++;
-                }
-                current_word.clear();
-            }
+std::vector<std::string> Parser::parseLine(const std::string& line) {
+    std::vector<std::string> words;
+    std::string currentWord;
+    for (char ch : line) {
+        if (isalnum(static_cast<unsigned char>(ch))) {
+            currentWord += tolower(static_cast<unsigned char>(ch));
         } else {
-            current_word += c;
+            if (!currentWord.empty()) {
+                words.push_back(currentWord);
+                currentWord.clear();
+            }
         }
     }
-    if (!current_word.empty()) {
-        std::string normalized = NormalizeWord(current_word);
-        if (!normalized.empty()) {
-            wordCounts[normalized]++;
-        }
+    if (!currentWord.empty()) {
+        words.push_back(currentWord);
     }
-    return wordCounts;
+    return words;
 }

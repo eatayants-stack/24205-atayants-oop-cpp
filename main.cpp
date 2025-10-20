@@ -1,32 +1,50 @@
-#include"Parser.h"
-#include"CSV-Loader.h"
-#include"TotalWords.h"
-#include"MergeWordCount.h"
-#include<iostream>
-#include<fstream>
-#include<string>
-#include<map>
+#include <iostream>
+#include <string>
+#include <vector>
 
-int main() {
-    std::ifstream file;
-    std::string array;
-    file.open("C:/Users/user/CLionProjects/24205-atayants-oop-cpp/in.txt");
-    if (!file.is_open()) {
-        std::cerr << "Error: Couldn't open file!" << std::endl;
+
+#include "FileReader.h"
+#include "Parser.h"
+#include "WordCounter.h"
+#include "StatisticsCollector.h"
+#include "CsvWriter.h"
+
+using namespace std;
+
+
+int main(int argc, char* argv[]) {
+
+    if (argc != 3) {
+        cout << "Usage: " << argv[0] << " <input.txt> <output.csv>" << endl;
         return 1;
     }
-    std::map<std::string, int> wordFrequencies;
-    std::string line;
-    while (std::getline(file, line)) {
-        std::map<std::string, int> lineFrequencies = Parse(line);
-        MergeWordCounts(wordFrequencies, lineFrequencies);
+
+    string inputFilename = argv[1];
+    string outputFilename = argv[2];
+
+
+    FileReader reader(inputFilename);
+    WordCounter counter;
+
+
+    reader.open();
+    while (reader.hasNext()) {
+        string line = reader.next();
+
+        vector<string> words = Parser::parseLine(line);
+        counter.addWords(words);
     }
-    file.close();
-    int WordsCount = TotalWords(wordFrequencies);
-    if (WordsCount > 0) {
-        DataToCSV(wordFrequencies, WordsCount, "output.csv");
-    } else {
-        std::cout << "File is empty." << std::endl;
-    }
+    reader.close();
+
+
+    StatisticsCollector stats;
+    stats.process(counter);
+
+
+    CsvWriter writer(outputFilename);
+    writer.write(stats);
+
+    cout << "Saved to: " << outputFilename << endl;
+
     return 0;
 }
