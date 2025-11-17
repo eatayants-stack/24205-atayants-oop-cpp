@@ -4,12 +4,11 @@
 #include <string>
 #include <vector>
 
-
+using namespace std;
 
 class Parser {
 public:
-
-    static std::vector<std::string> parseLine(const std::string& line);
+    static vector<string> parseLine(const string& line);
 };
 
 #endif // PARSER_H

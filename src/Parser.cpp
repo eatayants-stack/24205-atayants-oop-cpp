@@ -1,13 +1,14 @@
 #include "Parser.h"
 #include <cctype>
 
+using namespace std;
 
-std::vector<std::string> Parser::parseLine(const std::string& line) {
-    std::vector<std::string> words;
-    std::string currentWord;
-    for (char ch : line) {
-        if (isalnum(static_cast<unsigned char>(ch))) {
-            currentWord += tolower(static_cast<unsigned char>(ch));
+vector<string> Parser::parseLine(const string& line) {
+    vector<string> words;
+    string currentWord;
+    for (char symb : line) {
+        if (isalnum(static_cast<unsigned char>(symb))) {
+            currentWord += tolower(static_cast<unsigned char>(symb));
         } else {
             if (!currentWord.empty()) {
                 words.push_back(currentWord);
