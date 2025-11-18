@@ -1,17 +1,14 @@
 #include "gtest/gtest.h"
-#include "WordCounter.h"
 #include "StatisticsCollector.h"
 #include <vector>
 #include <string>
 
 
 TEST(StatisticsCollectorTest, ProcessesAndSortsCorrectly) {
-    WordCounter counter;
-    counter.addWords({"b", "c", "a", "b", "c", "c"});
-
-
     StatisticsCollector stats;
-    stats.process(counter);
+    stats.addWords({"b", "c", "a", "b", "c", "c"});
+
+    stats.process();
 
     const auto& result = stats.getResults();
 
@@ -32,9 +29,8 @@ TEST(StatisticsCollectorTest, ProcessesAndSortsCorrectly) {
 }
 
 TEST(StatisticsCollectorTest, HandlesEmptyCounter) {
-    WordCounter counter;
     StatisticsCollector stats;
-    stats.process(counter);
+    stats.process();
     
     const auto& result = stats.getResults();
     EXPECT_TRUE(result.empty());

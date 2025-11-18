@@ -16,7 +16,7 @@ add_library(wordstats STATIC
         ${SRC_DIR}/CsvWriter.cpp
         ${SRC_DIR}/FileReader.cpp
         ${SRC_DIR}/StatisticsCollector.cpp
-        ${SRC_DIR}/WordCounter.cpp
+        ${SRC_DIR}/WordStat.cpp
 )
 target_include_directories(wordstats PUBLIC ${SRC_DIR})
 

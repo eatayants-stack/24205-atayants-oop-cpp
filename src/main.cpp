@@ -2,7 +2,6 @@
 #include "CsvWriter.h"
 #include "Parser.h"
 #include "StatisticsCollector.h"
-#include "WordCounter.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -21,12 +20,12 @@ int main(int argc, char* argv[]) {
     }
 
     Parser parser;
-    WordCounter counter;
+    StatisticsCollector statsCollector;
 
     while (!reader.isEOF()) {
         const std::string line = reader.getLine();
         const std::vector<std::string> words = parser.parseLine(line);
-        counter.addWords(words);
+        statsCollector.addWords(words);
     }
 
     CsvWriter writer(argv[2]);
@@ -35,8 +34,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    StatisticsCollector statsCollector;
-    statsCollector.process(counter);
+    statsCollector.process();
     const auto& stats = statsCollector.getResults();
 
     writer.write({"word", "frequency", "percentage"});

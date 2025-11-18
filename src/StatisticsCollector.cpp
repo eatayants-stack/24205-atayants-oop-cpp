@@ -1,21 +1,26 @@
 #include "StatisticsCollector.h"
 
-#include "WordCounter.h"
-
 #include <algorithm>
 
-void StatisticsCollector::process(const WordCounter& counter) {
+void StatisticsCollector::addWords(const std::vector<std::string>& words) {
+    for (const auto& word : words) {
+        if (word.empty()) {
+            continue;
+        }
+        ++wordCounts[word];
+        ++totalWords;
+    }
+}
+
+void StatisticsCollector::process() {
     results.clear();
 
-    const auto& counts = counter.getWordCounts();
-    const auto totalWords = counter.getTotalWords();
-
-    if (counts.empty() || totalWords == 0) {
+    if (wordCounts.empty() || totalWords == 0) {
         return;
     }
 
-    results.reserve(counts.size());
-    for (const auto& [word, count] : counts) {
+    results.reserve(wordCounts.size());
+    for (const auto& [word, count] : wordCounts) {
         double percentage = static_cast<double>(count) * 100.0 / static_cast<double>(totalWords);
         results.push_back({word, count, percentage});
     }
@@ -30,4 +35,12 @@ void StatisticsCollector::process(const WordCounter& counter) {
 
 const std::vector<WordStat>& StatisticsCollector::getResults() const {
     return results;
+}
+
+const std::map<std::string, std::size_t>& StatisticsCollector::getWordCounts() const {
+    return wordCounts;
+}
+
+std::size_t StatisticsCollector::getTotalWords() const {
+    return totalWords;
 }
