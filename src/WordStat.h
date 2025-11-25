@@ -4,10 +4,19 @@
 #include <cstddef>
 #include <string>
 
-struct WordStat {
+class WordStat {
+private:
     std::string word;
-    std::size_t frequency = 0;
-    double percentage = 0.0;
+    std::size_t frequency;
+    double percentage;
+
+public:
+    WordStat(const std::string& w, const std::size_t c, const double f = 0.0)
+        : word(w), frequency(c), percentage(f) {}
+
+    const std::string& getWord() const;
+    std::size_t getFrequency() const;
+    double getPercentage() const;
 };
 
 #endif // WORDSTAT_H

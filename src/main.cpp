@@ -40,10 +40,10 @@ int main(int argc, char* argv[]) {
     writer.write({"word", "frequency", "percentage"});
     for (const auto& wordStat : stats) {
         std::ostringstream freqStream;
-        freqStream << std::fixed << std::setprecision(3) << wordStat.percentage;
+        freqStream << std::fixed << std::setprecision(3) << wordStat.getPercentage();
         std::vector<std::string> row = {
-            wordStat.word,
-            std::to_string(wordStat.frequency),
+            wordStat.getWord(),
+            std::to_string(wordStat.getFrequency()),
             freqStream.str()
         };
         writer.write(row);

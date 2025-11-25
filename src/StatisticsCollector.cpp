@@ -26,10 +26,10 @@ void StatisticsCollector::process() {
     }
 
     std::stable_sort(results.begin(), results.end(), [](const WordStat& lhs, const WordStat& rhs) {
-        if (lhs.frequency == rhs.frequency) {
-            return lhs.word < rhs.word;
+        if (lhs.getFrequency() == rhs.getFrequency()) {
+            return lhs.getWord() < rhs.getWord();
         }
-        return lhs.frequency > rhs.frequency;
+        return lhs.getFrequency() > rhs.getFrequency();
     });
 }
 
