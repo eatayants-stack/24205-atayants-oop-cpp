@@ -5,6 +5,10 @@ FileReader::FileReader(const std::string& filename)
     : file(filename) {
 }
 
+FileReader::~FileReader() {
+    file.close();
+}
+
 bool FileReader::isOpen() const {
     return file.is_open();
 }

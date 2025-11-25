@@ -11,6 +11,7 @@ private:
 
 public:
     explicit FileReader(const std::string& filename);
+    ~FileReader();
     bool isOpen() const;
     bool isEOF();
     std::string getLine();
