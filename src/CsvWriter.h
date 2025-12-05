@@ -12,7 +12,6 @@ private:
 public:
     explicit CsvWriter(const std::string& filename);
     ~CsvWriter();
-
     bool isOpen() const;
     void write(const std::vector<std::string>& row);
 };

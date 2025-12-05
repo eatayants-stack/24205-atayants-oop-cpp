@@ -15,7 +15,7 @@ void StatisticsCollector::addWords(const std::vector<std::string>& words) {
 void StatisticsCollector::process() {
     results.clear();
 
-    if (wordCounts.empty() || totalWords == 0) {
+    if (wordCounts.empty()) {
         return;
     }
 
@@ -33,14 +33,7 @@ void StatisticsCollector::process() {
     });
 }
 
-const std::vector<WordStat>& StatisticsCollector::getResults() const {
+const std::vector<WordStat>& StatisticsCollector::getResults() {
+    process();
     return results;
-}
-
-const std::map<std::string, std::size_t>& StatisticsCollector::getWordCounts() const {
-    return wordCounts;
-}
-
-std::size_t StatisticsCollector::getTotalWords() const {
-    return totalWords;
 }

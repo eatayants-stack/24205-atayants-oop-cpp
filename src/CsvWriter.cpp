@@ -4,9 +4,7 @@ CsvWriter::CsvWriter(const std::string& filename)
 }
 
 CsvWriter::~CsvWriter() {
-    if (outputFile.is_open()) {
         outputFile.close();
-    }
 }
 
 bool CsvWriter::isOpen() const {

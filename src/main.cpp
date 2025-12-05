@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    statsCollector.process();
+
     const auto& stats = statsCollector.getResults();
 
     writer.write({"word", "frequency", "percentage"});

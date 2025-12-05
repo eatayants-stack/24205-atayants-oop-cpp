@@ -1,5 +1,4 @@
 #include "FileReader.h"
-#include <string>
 
 FileReader::FileReader(const std::string& filename)
     : file(filename) {

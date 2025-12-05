@@ -8,8 +8,6 @@ TEST(StatisticsCollectorTest, ProcessesAndSortsCorrectly) {
     StatisticsCollector stats;
     stats.addWords({"b", "c", "a", "b", "c", "c"});
 
-    stats.process();
-
     const auto& result = stats.getResults();
 
     ASSERT_EQ(result.size(), 3);
@@ -30,7 +28,6 @@ TEST(StatisticsCollectorTest, ProcessesAndSortsCorrectly) {
 
 TEST(StatisticsCollectorTest, HandlesEmptyCounter) {
     StatisticsCollector stats;
-    stats.process();
     
     const auto& result = stats.getResults();
     EXPECT_TRUE(result.empty());

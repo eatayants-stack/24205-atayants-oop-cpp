@@ -12,13 +12,11 @@ private:
     std::map<std::string, std::size_t> wordCounts;
     std::size_t totalWords = 0;
     std::vector<WordStat> results;
+    void process();
 
 public:
     void addWords(const std::vector<std::string>& words);
-    void process();
-    const std::vector<WordStat>& getResults() const;
-    const std::map<std::string, std::size_t>& getWordCounts() const;
-    std::size_t getTotalWords() const;
+    const std::vector<WordStat>& getResults();
 };
 
 #endif // STATISTICSCOLLECTOR_H
