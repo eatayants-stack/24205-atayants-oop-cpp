@@ -120,6 +120,7 @@ void BitArray::clear() {
 void BitArray::push_back(bool bit) {
     int bit_index = m_num_bits;
     int block_index = get_block_index(bit_index);
+    int bit_offset = get_bit_offset(bit_index);
     
     if (static_cast<size_t>(block_index) >= m_blocks.size()) {
         m_blocks.push_back(0);
@@ -127,7 +128,7 @@ void BitArray::push_back(bool bit) {
     
     m_num_bits++;
     if (bit) {
-        set(bit_index, true);
+        m_blocks[block_index] |= (static_cast<BlockType>(1) << bit_offset);
     }
 }
 
@@ -169,20 +170,24 @@ BitArray& BitArray::operator<<=(int n) {
     int bit_offset = n % bits_per_block;
 
     if (block_shift > 0) {
-        for (int i = (int)m_blocks.size() - 1; i >= 0; --i) {
-            if (i - block_shift >= 0) {
-                m_blocks[i] = m_blocks[i - block_shift];
-            } else {
-                m_blocks[i] = 0;
+        if (m_blocks.size() > 0) {
+            for (size_t i = m_blocks.size(); i-- > 0; ) {
+                if (i >= static_cast<size_t>(block_shift)) {
+                    m_blocks[i] = m_blocks[i - block_shift];
+                } else {
+                    m_blocks[i] = 0;
+                }
             }
         }
     }
 
     if (bit_offset > 0) {
-        for (int i = (int)m_blocks.size() - 1; i >= 0; --i) {
-            m_blocks[i] <<= bit_offset;
-            if (i > 0) {
-                m_blocks[i] |= (m_blocks[i-1] >> (bits_per_block - bit_offset));
+        if (m_blocks.size() > 0) {
+            for (size_t i = m_blocks.size(); i-- > 0; ) {
+                m_blocks[i] <<= bit_offset;
+                if (i > 0) {
+                    m_blocks[i] |= (m_blocks[i-1] >> (bits_per_block - bit_offset));
+                }
             }
         }
     }
@@ -363,6 +368,10 @@ bool operator==(const BitArray & a, const BitArray & b) {
 
 bool operator!=(const BitArray & a, const BitArray & b) {
     return !(a == b);
+}
+
+void swap(BitArray& a, BitArray& b) {
+    a.swap(b);
 }
 
 BitArray operator&(const BitArray& b1, const BitArray& b2) {

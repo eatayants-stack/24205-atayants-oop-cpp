@@ -81,6 +81,8 @@ public:
 bool operator==(const BitArray& a, const BitArray& b);
 bool operator!=(const BitArray& a, const BitArray& b);
 
+void swap(BitArray& a, BitArray& b);
+
 BitArray operator&(const BitArray& b1, const BitArray& b2);
 BitArray operator|(const BitArray& b1, const BitArray& b2);
 BitArray operator^(const BitArray& b1, const BitArray& b2);
