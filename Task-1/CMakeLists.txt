@@ -22,6 +22,12 @@ add_library(bitarray_lib
 
 target_include_directories(bitarray_lib PUBLIC src)
 
+add_executable(my_app
+        src/main.cpp
+        src/BitArray.cpp
+        src/BitArray.h
+)
+
 add_executable(run_tests
         test/BitArrayTest.cpp
 )
